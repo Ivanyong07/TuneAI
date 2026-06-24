@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api',
     'backend',
-    'rest_frameork',
+    'rest_framework',
     'corsheaders'
 ]
 
@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'instrova_db',
+        'NAME': 'toneai',
         'USER': 'root',
         'PASSWORD': '14145313',
         'HOST': 'localhost',
