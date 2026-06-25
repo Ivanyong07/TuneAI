@@ -5,7 +5,10 @@ let isScanning = false
 async function startCamera() {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({
-            video: {facingMode: 'environment'}
+            video: {facingMode: 'environment',
+            width: { ideal: 1920 },
+            eight: { ideal: 1080 }
+            }
         })
 
         video.srcObject = stream
@@ -19,7 +22,8 @@ async function startCamera() {
 
 function startScanning() {
     setInterval(async () => {
-        if (isScanning) return isScanning = true
+        if (isScanning) return 
+        isScanning = true
 
         try {
             canvas.width = video.videoWidth
@@ -44,5 +48,4 @@ function startScanning() {
 
     }, 1500)
 }
-
 window.addEventListener('DOMContentLoaded', startCamera)

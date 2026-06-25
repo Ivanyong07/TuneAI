@@ -27,7 +27,7 @@ class InstrumentDataView(APIView):
                 status=status.HTTP_404_NOT_FOUND
             )
 
-        serializer = InstrumentSerializers(Instrument)
+        serializer = InstrumentSerializers(instrument)
         return Response(serializer.data)
 
 
