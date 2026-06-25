@@ -15,7 +15,48 @@
       <p class="text-white/50 mb-8">Point your camera at any instrument</p>
     </div>
 
-    <div class="scan"></div>
-    <div class="result"></div>
+    <!-- Full screen camera -->
+    <div class="relative w-full h-screen">
+      <!-- Camera feed -->
+      <video
+        id="video"
+        autoplay
+        playsinline
+        class="w-full h-full object-cover"
+      ></video>
+
+      <!-- Hidden canvas for capturing frames -->
+      <canvas id="canvas" class="hidden"></canvas>
+
+      <!-- Scan frame overlay -->
+      <div
+        class="absolute inset-0 flex items-center justify-center pointer-events-none"
+      >
+        <div
+          id="scan-frame"
+          class="w-64 h-64 border-2 border-violet-400 rounded-2xl"
+        ></div>
+      </div>
+
+      <div class="absolute top-6 left-0 right-0 text-center">
+        <h1 class="text-2xl font-bold">ToneAI</h1>
+        <p id="status-text" class="text-white/50 text-sm mt-1">Scanning...</p>
+      </div>
+
+      <!-- Result overlay at bottom -->
+      <div
+        id="result-box"
+        class="hidden absolute bottom-10 left-4 right-4 bg-black/70 backdrop-blur rounded-2xl p-5 text-center"
+      >
+        <p class="text-white/50 text-xs mb-1 uppercase tracking-widest">
+          Detected
+        </p>
+        <p id="instrument-name" class="text-3xl font-bold mb-1"></p>
+        <p id="confidence-text" class="text-violet-400 text-sm"></p>
+      </div>
+    </div>
+
+    <script src="static/js/camera.js"></script>
+    <script src="static/js/index.js"></script>
   </body>
 </html>
