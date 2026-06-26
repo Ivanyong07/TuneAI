@@ -1,12 +1,15 @@
 from ultralytics import YOLO
 
+
 model = YOLO('yolov8s.pt')
 
 model.train(
-    data='Guitar-4/data.yaml',
+    data='dataset/dataset.yaml',
     epochs=50,
     imgsz=640,
-    batch=16,
+    batch=8,
     name='tuneai',
     patience=20,
+    lr0=0.01,
+    augment=True,
 )

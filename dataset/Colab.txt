@@ -1,0 +1,43 @@
+# Cell 1 - Setup (run this every time Colab resets)
+!pip install ultralytics -q
+
+from google.colab import drive
+drive.mount('/content/drive')
+
+!unzip -o /content/drive/MyDrive/dataset.zip -d /content/
+
+# Fix yaml
+with open('/content/dataset/dataset.yaml', 'w') as f:
+    f.write("""path: /content/dataset
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 1
+names: ["guitar"]
+""")
+
+# Fix labels
+import glob
+for label_path in glob.glob('/content/dataset/**/labels/*.txt', recursive=True):
+    with open(label_path, 'r') as f:
+        lines = f.readlines()
+    new_lines = []
+    for line in lines:
+        if line.strip():
+            parts = line.strip().split()
+            parts[0] = '0'
+            new_lines.append(' '.join(parts) + '\n')
+    with open(label_path, 'w') as f:
+        f.writelines(new_lines)
+
+print("Ready!")
+
+# Cell 2 - Train
+from ultralytics import YOLO
+model = YOLO('yolov8s.pt')
+model.train(data='/content/dataset/dataset.yaml', epochs=100, imgsz=640, batch=16, name='tuneai', patience=20, augment=True)
+
+# Cell 3 - Download
+from google.colab import files
+files.download('/content/runs/detect/tuneai/weights/best.pt')

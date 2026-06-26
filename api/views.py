@@ -59,7 +59,7 @@ class ScanLogInstrument(APIView):
             tmp.write(image_data)
             tmp_path = tmp.name
 
-        results = model(tmp_path)
+        results = model(tmp_path, conf=0.3)
         os.unlink(tmp_path)
 
         detected_name = None
@@ -73,14 +73,7 @@ class ScanLogInstrument(APIView):
                     confidence = conf
                     detected_name = cls.lower()
 
-        name_map = {
-            'gitar': 'guitar',
-        }
-
-        if detected_name:
-            detected_name = name_map.get(detected_name, detected_name)
-
-        if not detected_name or confidence < 0.5:
+        if not detected_name or confidence < 0.3:
             return Response({'detected': False, 'message': 'No instrument detected'})
 
         try:
