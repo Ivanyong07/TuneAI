@@ -1,0 +1,13 @@
+names:
+- Bass
+- Gitar
+nc: 2
+roboflow:
+  license: CC BY 4.0
+  project: guitar-7rciy
+  url: https://universe.roboflow.com/uas-ai-2024/guitar-7rciy/dataset/4
+  version: 4
+  workspace: uas-ai-2024
+test: ../test/images
+train: ../train/images
+val: ../valid/images
