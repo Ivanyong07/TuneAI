@@ -7,6 +7,11 @@ from rest_framework import status
 import base64
 from PIL import Image
 import io
+import os
+from ultralytics import YOLO
+import tempfile
+
+model = YOLO('runs/detect/tuneai/weights/best.pt')
 
 
 class InstrumentListsView(APIView):
@@ -42,17 +47,41 @@ class ScanLogInstrument(APIView):
         try:
             b64 = request.data['image_base64']
             if ',' in b64:
-
                 b64 = b64.split(",")[1]
-                image_data = base64.b64decode(b64)
+            image_data = base64.b64decode(b64)
         except Exception:
             return Response(
                 {'error': 'Invalid image'},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        detected_name = 'guitar'
-        confidence = 0.67
+        with tempfile.NamedTemporaryFile(delete=False, suffix='.jpg') as tmp:
+            tmp.write(image_data)
+            tmp_path = tmp.name
+
+        results = model(tmp_path)
+        os.unlink(tmp_path)
+
+        detected_name = None
+        confidence = 0
+
+        for result in results:
+            for box in result.boxes:
+                conf = float(box.conf[0])
+                cls = result.names[int(box.cls[0])]
+                if conf > confidence:
+                    confidence = conf
+                    detected_name = cls.lower()
+
+        name_map = {
+            'gitar': 'guitar',
+        }
+
+        if detected_name:
+            detected_name = name_map.get(detected_name, detected_name)
+
+        if not detected_name or confidence < 0.5:
+            return Response({'detected': False, 'message': 'No instrument detected'})
 
         try:
             instrument = Instrument.objects.get(name=detected_name)
