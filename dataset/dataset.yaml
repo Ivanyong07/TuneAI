@@ -1,0 +1,7 @@
+path: ./dataset
+train: train
+val: valid
+test: test
+
+nc: 1 # number of classes
+names: ["guitar"]
