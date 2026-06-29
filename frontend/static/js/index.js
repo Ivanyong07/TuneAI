@@ -3,6 +3,7 @@ const modelMap = {
     'piano':'piano.glb',
     'guzheng':'guzheng.glb',
 }
+const modelViewer = document.getElementById('instrument-model')
 
 function showModel(instrumentName){
     const modelViewer = document.getElementById('instrument-model')
@@ -36,8 +37,26 @@ function handleResult(data) {
         confidenceText.textContent = `${data.confidence}% confidence`
         statusText.textContent = 'Instrument found!'
         showModel(data.instrument.name)
+        startHandTracking()
     } else {
         resultBox.classList.add('hidden')
         statusText.textContent = 'Scanning...'
     }
+}
+
+
+modelViewer.addEventListener('load', () => {
+    console.log("Available animations: ", modelViewer.availableAnimations)
+    modelViewer.animationName = 'Break Apart'
+    modelViewer.pause()
+})
+
+function explodeGuitar(){
+    modelViewer.animationName = 'Break Apart'
+    modelViewer.play({repetitions : 1})
+}
+
+function assembleGuitar() {
+    modelViewer.currentTime = 0
+    modelViewer.pause()
 }
