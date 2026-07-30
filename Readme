@@ -1,0 +1,70 @@
+# TuneAI: Reshaping Art Education with AI & AR
+
+
+Demo Link (Only Frontend!!!)
+https://tune-ai-eta.vercel.app/
+
+At a time when generative technologies threaten to overshadow human artistry, **TuneAI** explores how humans and technology can work together. We use AI and Augmented Reality to break down the financial and physical barriers to music education, making instrument mechanics and musical practice universally accessible.
+
+## 💡 The Problem
+
+1. **Financial Barriers:** High-quality instruments and private lessons are expensive, excluding many from the joy of music.
+2. **Inaccessible Mechanics:** Traditional tutorials ignore the engineering of instruments. Underprivileged learners rarely get to dismantle and explore a high-end guitar to understand how it works.
+3. **The "AI Apocalypse":** Generative AI produces instant music, causing younger generations to lose the tactile, emotional craft of learning an instrument.
+
+## 🚀 What It Does
+
+TuneAI is an immersive, browser-based web application that allows users to interact with music and instruments using only their hands.
+
+- **Object Scanning (YOLO):** Scan a guitar through your webcam with real-time confidence tracking.
+- **3D AR Exploration:** Trigger a 3D model of the scanned guitar. Using **MediaPipe Hand Landmarker**, users can control the spatial position of the guitar, trigger an "exploded view" to see internal mechanics, and manipulate small components—all using hand gestures.
+- **Interactive 2D Tutorial:** Play a song by following strings and chords on the screen, guided entirely by hand tracking without needing physical hardware.
+
+## 🛠️ How We Built It
+
+- **Frontend:** HTML/CSS/JavaScript
+- **Computer Vision:** YOLO (custom trained for guitar detection), MediaPipe Hand Landmarker for real-time gesture recognition.
+- **3D Rendering:** WebGL / Three.js (for rendering and exploding the 3D `.gltf` guitar models).
+- **Integration:** Fused complex asynchronous AI models into a single, seamless camera feed in the browser.
+
+## ⚙️ Setup and Installation
+
+Due to browser CORS policies regarding fetching 3D models and weights, this project must be run on a local web server.
+
+Clone the repository:
+
+```bash
+git clone [https://github.com/Ivanyong07/TuneAI.git](https://github.com/Ivanyong07/TuneAI.git)
+cd TuneAI
+```
+
+Start a local server. If you have Python installed:
+
+For frontend
+
+```bash
+cd frontend python -m http.server 8000
+```
+
+For Backend
+
+```bash
+python manage.py runserver
+```
+
+Open your browser and navigate to:
+
+http://localhost:8000
+Allow camera permissions when prompted.
+
+🚧 Challenges We Ran Into
+Resource Sharing: Combining YOLO object detection, MediaPipe landmarking, and AR rendering on a single webcam stream caused severe fetch and sync errors. We solved this by centralizing the camera pipeline.
+
+Performance: Running complex computer vision models alongside 3D rendering in a web browser required heavy optimization to maintain a playable framerate.
+
+🔮 What's Next
+Expanding the library of 3D instruments (pianos, violins, drum kits).
+
+Adding gamified progress tracking for the 2D playing tutorials.
+
+Refining gesture physics for smoother 3D component rotation.

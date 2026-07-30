@@ -1,0 +1,10 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('instrument/', views.InstrumentListsView.as_view(), name='instrument'),
+    path('instrument/<str:name>/',
+         views.InstrumentDataView.as_view(), name='instrument-data'),
+    path('scan/', views.ScanLogInstrument.as_view(), name='scan'),
+    path('scan/tutorial/', views.guitar_tutorial_view, name='guitar-tutorial'),
+]

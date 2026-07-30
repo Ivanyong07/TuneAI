@@ -1,0 +1,50 @@
+/* Horizontal string line across the row */
+.string-row::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  background: rgba(226, 232, 240, 0.3);
+  z-index: 0;
+}
+
+/* Make lower strings thicker visually */
+.string-row[data-string="A2"]::before { height: 3px; }
+.string-row[data-string="E2"]::before { height: 4px; }
+
+/* Note Nodes style */
+.fret-note {
+  position: relative;
+  z-index: 20;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+  border-radius: 9999px;
+  background: #18181b;
+  border: 2px solid #52525b;
+  color: #a1a1aa;
+  cursor: pointer;
+  transition: all 120ms ease-in-out;
+}
+
+/* Hover glow effect */
+.fret-note:hover {
+  background: #a78bfa;
+  border-color: #c084fc;
+  color: #000;
+  transform: scale(1.15);
+  box-shadow: 0 0 12px rgba(167, 139, 250, 0.6);
+}
+
+/* Style for open string notes column (far left position) */
+.open-string {
+  background: #27272a;
+  border-color: #a78bfa;
+  color: #fff;
+}

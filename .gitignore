@@ -1,0 +1,8 @@
+﻿.env
+db.sqlite3
+*.csv
+*.pkl
+venv/
+**/__pycache__/
+*.pyc
+staticfiles/

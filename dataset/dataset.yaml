@@ -1,0 +1,7 @@
+path: /content/dataset
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 1 # number of classes
+names: ["guitar"]
